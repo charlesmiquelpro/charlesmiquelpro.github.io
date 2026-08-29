@@ -1,0 +1,273 @@
+/* ==========================================================================
+   CMOTORS — styles spécifiques au site d'intermédiation véhicule
+   ========================================================================== */
+
+:root{
+	--cm-navy: #0f1b2d;
+	--cm-navy-light: #17293f;
+	--cm-steel: #647184;
+	--cm-amber: #f2994a;
+	--cm-amber-dark: #d97e2f;
+	--cm-bg: #f6f8fa;
+	--cm-border: #e5ebf2;
+}
+
+/* ---------- Nav (override template's purple theme accents) ---------- */
+.navbar-header a.navbar-brand,
+.navbar-header a.navbar-brand:hover,
+.navbar-header a.navbar-brand:focus{
+	color: var(--cm-navy) !important;
+	font-weight: 800;
+	letter-spacing: 1px;
+}
+.navbar-header a.navbar-brand span{ color: var(--cm-amber-dark); }
+
+nav.navbar.bootsnav ul.nav > li > a:hover,
+nav.navbar.bootsnav ul.nav > li > a:focus,
+nav.navbar.bootsnav ul.nav > li.active > a,
+.sticky-wrapper.is-sticky nav.navbar.bootsnav ul.nav > li > a:hover,
+.sticky-wrapper.is-sticky nav.navbar.bootsnav ul.nav > li > a:focus,
+.sticky-wrapper.is-sticky nav.navbar.bootsnav ul.nav > li.active > a{
+	color: var(--cm-amber-dark) !important;
+}
+nav.navbar.bootsnav .navbar-toggle i{ color: var(--cm-amber-dark) !important; }
+nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-amber-dark) !important; }
+.menu-ui-design::-webkit-scrollbar-thumb{ background-color: var(--cm-amber-dark) !important; }
+
+/* return-to-top button */
+#scroll-Top .return-to-top{ background: var(--cm-navy) !important; border-color: var(--cm-navy) !important; }
+#scroll-Top .return-to-top:hover{ background: var(--cm-amber-dark) !important; border-color: var(--cm-amber-dark) !important; color:#fff !important; }
+
+/* ---------- Hero ---------- */
+.cm-hero{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	position:relative;
+	min-height:760px;
+	padding: 160px 0 100px;
+	background: linear-gradient(135deg, var(--cm-navy) 0%, var(--cm-navy-light) 55%, #23405e 100%);
+	overflow:hidden;
+}
+.cm-hero:before{
+	content:"";
+	position:absolute;
+	top:-20%; right:-10%;
+	width:600px; height:600px;
+	background: radial-gradient(circle, rgba(242,153,74,.18) 0%, rgba(242,153,74,0) 70%);
+}
+.cm-hero-content{ position:relative; z-index:2; max-width:760px; margin:0 auto; text-align:center; }
+.cm-hero-eyebrow{
+	display:inline-block;
+	color: var(--cm-amber);
+	text-transform:uppercase;
+	letter-spacing:2px;
+	font-size:13px;
+	font-weight:700;
+	margin-bottom:22px;
+	border: 1px solid rgba(242,153,74,.4);
+	padding:6px 16px;
+	border-radius: 30px;
+}
+.cm-hero h1{
+	color:#fff;
+	font-size:46px;
+	font-weight:700;
+	line-height:1.35;
+	margin-bottom:24px;
+}
+.cm-hero h1 span{ color: var(--cm-amber); }
+.cm-hero p{
+	color:#c7d1de;
+	font-size:18px;
+	font-weight:300;
+	line-height:1.7;
+	margin-bottom:40px;
+}
+.cm-hero-actions{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
+.cm-btn{
+	display:inline-block;
+	padding: 16px 32px;
+	border-radius:4px;
+	font-weight:600;
+	text-transform:uppercase;
+	letter-spacing:.5px;
+	font-size:14px;
+	transition:.25s ease;
+	border:1px solid transparent;
+}
+.cm-btn-primary{
+	background: var(--cm-amber);
+	border-color: var(--cm-amber);
+	color:#101820;
+	box-shadow: 0 8px 24px rgba(242,153,74,.35);
+}
+.cm-btn-primary:hover{ background: var(--cm-amber-dark); border-color: var(--cm-amber-dark); color:#101820; }
+.cm-btn-ghost{
+	background:transparent;
+	border-color: rgba(255,255,255,.5);
+	color:#fff;
+}
+.cm-btn-ghost:hover{ background: rgba(255,255,255,.08); border-color:#fff; color:#fff; }
+
+/* ---------- Generic section wrapper ---------- */
+.cm-section{ padding: 100px 0; }
+.cm-section.alt{ background: var(--cm-bg); }
+.cm-section-heading{ text-align:center; max-width:680px; margin: 0 auto 60px; }
+.cm-section-heading .cm-kicker{
+	display:block;
+	text-transform:uppercase;
+	letter-spacing:2px;
+	font-size:13px;
+	font-weight:700;
+	color: var(--cm-amber-dark);
+	margin-bottom:14px;
+}
+.cm-section-heading h2{
+	font-size:30px;
+	font-weight:700;
+	color: var(--cm-navy);
+	margin-bottom:16px;
+}
+.cm-section-heading p{ color: var(--cm-steel); font-size:16px; line-height:1.7; }
+
+/* ---------- Process steps ---------- */
+.cm-steps{ counter-reset: cmstep; }
+.cm-step{
+	position:relative;
+	background:#fff;
+	border:1px solid var(--cm-border);
+	border-radius:8px;
+	padding:36px 28px 30px;
+	height:100%;
+	margin-bottom:30px;
+	transition:.25s ease;
+}
+.cm-step:hover{ box-shadow: 0 16px 32px rgba(15,27,45,.08); transform: translateY(-4px); }
+.cm-step:before{
+	counter-increment: cmstep;
+	content: counter(cmstep, decimal-leading-zero);
+	display:inline-block;
+	font-size:14px;
+	font-weight:700;
+	color: var(--cm-amber-dark);
+	background: rgba(242,153,74,.12);
+	padding:4px 12px;
+	border-radius:20px;
+	margin-bottom:18px;
+}
+.cm-step h4{ font-size:18px; font-weight:700; color: var(--cm-navy); margin-bottom:12px; }
+.cm-step p{ color: var(--cm-steel); font-size:15px; line-height:1.65; margin:0; }
+
+/* ---------- Audience cards ---------- */
+.cm-audience{
+	background:#fff;
+	border:1px solid var(--cm-border);
+	border-radius:8px;
+	padding:40px 32px;
+	height:100%;
+	margin-bottom:30px;
+}
+.cm-audience i{ font-size:32px; color: var(--cm-amber-dark); margin-bottom:20px; display:block; }
+.cm-audience h4{ font-size:19px; font-weight:700; color: var(--cm-navy); margin-bottom:14px; }
+.cm-audience p{ color: var(--cm-steel); font-size:15px; line-height:1.7; }
+.cm-audience ul{ list-style:none; padding:0; margin: 18px 0 0; }
+.cm-audience ul li{ color: var(--cm-steel); font-size:15px; margin-bottom:10px; padding-left:24px; position:relative; }
+.cm-audience ul li:before{
+	content: "\f00c";
+	font-family: FontAwesome;
+	position:absolute; left:0; top:2px;
+	color: var(--cm-amber-dark);
+	font-size:13px;
+}
+
+/* ---------- Benefits grid ---------- */
+.cm-benefit{ text-align:center; padding: 20px 16px; margin-bottom:40px; }
+.cm-benefit i{
+	width:70px; height:70px;
+	line-height:70px;
+	border-radius:50%;
+	background: var(--cm-navy);
+	color: var(--cm-amber);
+	font-size:26px;
+	display:inline-block;
+	margin-bottom:22px;
+}
+.cm-benefit h4{ font-size:17px; font-weight:700; color: var(--cm-navy); margin-bottom:10px; }
+.cm-benefit p{ color: var(--cm-steel); font-size:14.5px; line-height:1.65; }
+
+/* ---------- Fee note ---------- */
+.cm-fee-note{
+	background: var(--cm-navy);
+	border-radius:8px;
+	padding: 40px 44px;
+	color:#fff;
+	display:flex;
+	align-items:center;
+	gap:26px;
+	margin-top:20px;
+}
+.cm-fee-note i{ font-size:36px; color: var(--cm-amber); flex-shrink:0; }
+.cm-fee-note p{ margin:0; color:#d7dee7; font-size:15.5px; line-height:1.7; }
+.cm-fee-note strong{ color:#fff; }
+
+/* ---------- About ---------- */
+.cm-about-box{
+	background:#fff;
+	border:1px solid var(--cm-border);
+	border-radius:8px;
+	padding: 44px;
+}
+.cm-about-box h3{ font-size:24px; font-weight:700; color: var(--cm-navy); margin-bottom:20px; }
+.cm-about-box p{ color: var(--cm-steel); font-size:15.5px; line-height:1.8; margin-bottom:18px; }
+.cm-about-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+.cm-about-tags span{
+	background: var(--cm-bg);
+	border:1px solid var(--cm-border);
+	color: var(--cm-navy);
+	font-size:13px;
+	font-weight:600;
+	padding:8px 16px;
+	border-radius:20px;
+}
+
+/* ---------- Contact ---------- */
+.cm-contact-card{
+	background:#fff;
+	border:1px solid var(--cm-border);
+	border-radius:8px;
+	padding:40px;
+	height:100%;
+}
+.cm-contact-card h3{ font-size:20px; font-weight:700; color: var(--cm-navy); margin-bottom:26px; }
+.cm-contact-line{ display:flex; align-items:flex-start; gap:16px; margin-bottom:22px; }
+.cm-contact-line i{
+	width:44px; height:44px; line-height:44px; text-align:center;
+	border-radius:50%; background: var(--cm-bg); color: var(--cm-amber-dark); font-size:17px; flex-shrink:0;
+}
+.cm-contact-line a, .cm-contact-line span{ color: var(--cm-steel); }
+.cm-contact-line strong{ display:block; color: var(--cm-navy); font-size:14px; margin-bottom:2px; }
+.cm-contact-quick{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; }
+
+.cm-form .form-group{ margin-bottom:18px; }
+.cm-form .form-control{
+	border-radius:4px;
+	border:1px solid var(--cm-border);
+	height:50px;
+	box-shadow:none;
+}
+.cm-form textarea.form-control{ height:auto; }
+.cm-form .form-control:focus{ border-color: var(--cm-amber); box-shadow:none; }
+
+/* ---------- Footer legal ---------- */
+.cm-footer{ background: var(--cm-navy); padding: 34px 0; }
+.cm-footer p{ color:#9fb0c4; font-size:13px; line-height:1.8; margin:0; text-align:center; }
+.cm-footer a{ color: var(--cm-amber); }
+
+@media(max-width:767px){
+	.cm-hero{ padding:140px 0 70px; min-height:auto; }
+	.cm-hero h1{ font-size:30px; }
+	.cm-section{ padding:70px 0; }
+	.cm-fee-note{ flex-direction:column; text-align:center; }
+	.cm-about-box{ padding:28px; margin-top:30px; }
+}
