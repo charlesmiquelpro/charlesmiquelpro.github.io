@@ -194,7 +194,10 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 }
 
 /* ---------- Benefits grid ---------- */
-.cm-benefit{ text-align:center; padding: 20px 16px; margin-bottom:40px; }
+/* flex + wrap force l'alignement en rangées régulières malgré les titres de hauteur inégale */
+#pourquoi .row{ display:flex; flex-wrap:wrap; }
+#pourquoi .row > [class*="col-"]{ display:flex; }
+.cm-benefit{ display:flex; flex-direction:column; width:100%; text-align:center; padding: 20px 16px; margin-bottom:40px; }
 .cm-benefit i{
 	width:70px; height:70px;
 	line-height:70px;
