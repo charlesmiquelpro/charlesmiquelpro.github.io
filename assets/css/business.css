@@ -48,10 +48,9 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	padding: 160px 0 100px;
 	background:
 		linear-gradient(135deg, rgba(0,0,0,.88) 0%, rgba(17,17,17,.85) 55%, rgba(38,38,38,.82) 100%),
-		url('../images/backgrounds/hero-ferrari.jpg');
+		url('../images/backgrounds/hero-porsche.jpg');
 	background-size: cover;
-	background-position: center 35%;
-	background-attachment: fixed;
+	background-position: center 30%;
 	overflow:hidden;
 }
 .cm-hero:before{
@@ -60,9 +59,6 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	top:-20%; right:-10%;
 	width:600px; height:600px;
 	background: radial-gradient(circle, rgba(255,255,255,.07) 0%, rgba(255,255,255,0) 70%);
-}
-@media(max-width:991px){
-	.cm-hero{ background-attachment: scroll; }
 }
 .cm-hero-content{ position:relative; z-index:2; max-width:760px; margin:0 auto; text-align:center; }
 .cm-hero-eyebrow{
@@ -227,7 +223,6 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 		url('../images/backgrounds/cta-roadster.jpg');
 	background-size: cover;
 	background-position: center 25%;
-	background-attachment: fixed;
 	padding: 150px 0;
 	text-align:center;
 }
@@ -236,7 +231,7 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 .cm-cta-band h2{ color:#fff; font-size:32px; font-weight:700; margin-bottom:20px; }
 .cm-cta-band p{ color:#d4d4d8; font-size:17px; line-height:1.7; margin-bottom:36px; }
 @media(max-width:991px){
-	.cm-cta-band{ background-attachment: scroll; padding:100px 0; }
+	.cm-cta-band{ padding:100px 0; }
 }
 
 /* ---------- Fee note ---------- */
