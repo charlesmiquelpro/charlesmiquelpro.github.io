@@ -55,6 +55,9 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
 
+		<!--scroll progress bar-->
+		<div id="cm-scroll-progress"><div id="cm-scroll-progress-bar"></div></div>
+
 		<!-- top-area Start -->
 		<header class="top-area">
 			<div class="header-area">
@@ -420,6 +423,23 @@
                     + '&body=' + encodeURIComponent(body);
             });
         }
+        </script>
+
+        <!--CMOTORS barre de progression de défilement-->
+        <script>
+        (function () {
+            var bar = document.getElementById('cm-scroll-progress-bar');
+            if (!bar) return;
+            function updateScrollProgress() {
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                bar.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', updateScrollProgress, { passive: true });
+            window.addEventListener('resize', updateScrollProgress);
+            updateScrollProgress();
+        })();
         </script>
 
     </body>
