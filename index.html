@@ -58,6 +58,17 @@
 		<!--scroll progress bar-->
 		<div id="cm-scroll-progress"><div id="cm-scroll-progress-bar"></div></div>
 
+		<!--fond photo qui avance avec le scroll : représente le parcours d'achat-->
+		<div id="cm-bg-scroll" aria-hidden="true">
+			<div class="cm-bg-layer" style="background-image:url('assets/images/backgrounds/stage-porsche.jpg')"></div>
+			<div class="cm-bg-layer" style="background-image:url('assets/images/backgrounds/stage-sedan.jpg')"></div>
+			<div class="cm-bg-layer" style="background-image:url('assets/images/backgrounds/stage-roadster.jpg')"></div>
+			<div class="cm-bg-layer" style="background-image:url('assets/images/backgrounds/stage-detail.jpg')"></div>
+			<div class="cm-bg-overlay"></div>
+		</div>
+
+		<div class="cm-page">
+
 		<!-- top-area Start -->
 		<header class="top-area">
 			<div class="header-area">
@@ -381,6 +392,8 @@
         </footer><!--/.footer-copyright-->
 		<!--footer-copyright end-->
 
+		</div><!--/.cm-page-->
+
 		<!-- Include all js compiled plugins (below), or include individual files as needed -->
 
 		<script src="assets/js/jquery.js"></script>
@@ -425,20 +438,42 @@
         }
         </script>
 
-        <!--CMOTORS barre de progression de défilement-->
+        <!--CMOTORS barre de progression + fond photo qui avance avec le scroll-->
         <script>
         (function () {
             var bar = document.getElementById('cm-scroll-progress-bar');
-            if (!bar) return;
-            function updateScrollProgress() {
+            var bgLayers = document.querySelectorAll('#cm-bg-scroll .cm-bg-layer');
+            var ticking = false;
+
+            function apply() {
                 var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                 var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-                bar.style.width = pct + '%';
+                var progress = docHeight > 0 ? scrollTop / docHeight : 0;
+
+                if (bar) {
+                    bar.style.width = (progress * 100) + '%';
+                }
+
+                if (bgLayers.length) {
+                    var stageFloat = progress * (bgLayers.length - 1);
+                    bgLayers.forEach(function (layer, i) {
+                        var opacity = Math.max(0, 1 - Math.abs(stageFloat - i));
+                        layer.style.opacity = opacity;
+                    });
+                }
+                ticking = false;
             }
-            window.addEventListener('scroll', updateScrollProgress, { passive: true });
-            window.addEventListener('resize', updateScrollProgress);
-            updateScrollProgress();
+
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(apply);
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            apply();
         })();
         </script>
 

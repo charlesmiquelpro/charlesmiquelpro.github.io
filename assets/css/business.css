@@ -1,6 +1,8 @@
 /* ==========================================================================
    CMOTORS — styles spécifiques au site d'intermédiation véhicule
-   Thème monochrome calé sur le logo (noir / blanc / gris)
+   Thème cinématique : un fond photo fixe qui avance (fondu) au fil du
+   scroll, représentant les étapes du parcours d'achat. Le contenu
+   défile par-dessus dans des panneaux semi-transparents ("glass").
    ========================================================================== */
 
 :root{
@@ -9,7 +11,41 @@
 	--cm-steel: #6b7280;
 	--cm-bg: #f6f6f7;
 	--cm-border: #e4e4e7;
+
+	--cm-glass-bg: rgba(255,255,255,.07);
+	--cm-glass-border: rgba(255,255,255,.16);
+	--cm-text: #ffffff;
+	--cm-text-soft: rgba(255,255,255,.72);
+	--cm-text-softer: rgba(255,255,255,.55);
 }
+
+html, body{ background: var(--cm-ink); }
+
+/* ---------- Fond photo qui avance avec le scroll ---------- */
+#cm-bg-scroll{
+	position:fixed;
+	inset:0;
+	z-index:0;
+	overflow:hidden;
+	background: var(--cm-ink);
+}
+.cm-bg-layer{
+	position:absolute;
+	inset:0;
+	background-size:cover;
+	background-position:center 30%;
+	opacity:0;
+	will-change: opacity;
+}
+.cm-bg-overlay{
+	position:absolute;
+	inset:0;
+	background:
+		linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.72) 12%, rgba(0,0,0,.78) 50%, rgba(0,0,0,.82) 88%, rgba(0,0,0,.9) 100%);
+}
+
+/* wrapper de tout le contenu, au-dessus du fond fixe */
+.cm-page{ position:relative; z-index:1; }
 
 /* ---------- Barre de progression de défilement ---------- */
 #cm-scroll-progress{
@@ -17,13 +53,13 @@
 	top:0; left:0;
 	width:100%;
 	height:3px;
-	background: rgba(17,17,17,.08);
+	background: rgba(255,255,255,.15);
 	z-index:10000;
 }
 #cm-scroll-progress-bar{
 	height:100%;
 	width:0%;
-	background: var(--cm-ink);
+	background: #fff;
 }
 
 /* ---------- Nav (override du thème violet d'origine du template) ---------- */
@@ -61,11 +97,6 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	position:relative;
 	min-height:760px;
 	padding: 160px 0 100px;
-	background:
-		linear-gradient(135deg, rgba(0,0,0,.88) 0%, rgba(17,17,17,.85) 55%, rgba(38,38,38,.82) 100%),
-		url('../images/backgrounds/hero-porsche.jpg');
-	background-size: cover;
-	background-position: center 30%;
 	overflow:hidden;
 }
 .cm-hero:before{
@@ -142,8 +173,8 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 .cm-btn-outline:hover{ background: var(--cm-bg); border-color: var(--cm-ink); color: var(--cm-ink); }
 
 /* ---------- Generic section wrapper ---------- */
-.cm-section{ padding: 100px 0; }
-.cm-section.alt{ background: var(--cm-bg); }
+.cm-section{ padding: 100px 0; position:relative; }
+.cm-section.alt{ background: rgba(0,0,0,.18); }
 .cm-section-heading{ text-align:center; max-width:680px; margin: 0 auto 60px; }
 .cm-section-heading .cm-kicker{
 	display:block;
@@ -151,64 +182,72 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	letter-spacing:2px;
 	font-size:13px;
 	font-weight:700;
-	color: var(--cm-ink);
+	color:#fff;
+	opacity:.85;
 	margin-bottom:14px;
 }
 .cm-section-heading h2{
 	font-size:30px;
 	font-weight:700;
-	color: var(--cm-ink);
+	color: var(--cm-text);
 	margin-bottom:16px;
 }
-.cm-section-heading p{ color: var(--cm-steel); font-size:16px; line-height:1.7; }
+.cm-section-heading p{ color: var(--cm-text-soft); font-size:16px; line-height:1.7; }
+
+/* ---------- Glass card (base commune) ---------- */
+.cm-step,
+.cm-audience,
+.cm-about-box,
+.cm-contact-card,
+.cm-fee-note{
+	background: var(--cm-glass-bg);
+	border:1px solid var(--cm-glass-border);
+	border-radius:8px;
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
+}
 
 /* ---------- Process steps ---------- */
 .cm-steps{ counter-reset: cmstep; }
 .cm-step{
 	position:relative;
-	background:#fff;
-	border:1px solid var(--cm-border);
-	border-radius:8px;
 	padding:36px 28px 30px;
 	height:100%;
 	margin-bottom:30px;
 	transition:.25s ease;
 }
-.cm-step:hover{ box-shadow: 0 16px 32px rgba(0,0,0,.08); transform: translateY(-4px); }
+.cm-step:hover{ box-shadow: 0 16px 32px rgba(0,0,0,.25); transform: translateY(-4px); }
 .cm-step:before{
 	counter-increment: cmstep;
 	content: counter(cmstep, decimal-leading-zero);
 	display:inline-block;
 	font-size:14px;
 	font-weight:700;
-	color: var(--cm-ink);
-	background: rgba(0,0,0,.06);
+	color:#fff;
+	background: rgba(255,255,255,.12);
 	padding:4px 12px;
 	border-radius:20px;
 	margin-bottom:18px;
 }
-.cm-step h4{ font-size:18px; font-weight:700; color: var(--cm-ink); margin-bottom:12px; }
-.cm-step p{ color: var(--cm-steel); font-size:15px; line-height:1.65; margin:0; }
+.cm-step h4{ font-size:18px; font-weight:700; color: var(--cm-text); margin-bottom:12px; }
+.cm-step p{ color: var(--cm-text-soft); font-size:15px; line-height:1.65; margin:0; }
 
 /* ---------- Audience cards ---------- */
 .cm-audience{
-	background:#fff;
-	border:1px solid var(--cm-border);
-	border-radius:8px;
 	padding:40px 32px;
 	height:100%;
 	margin-bottom:30px;
 }
-.cm-audience i{ font-size:32px; color: var(--cm-ink); margin-bottom:20px; display:block; }
-.cm-audience h4{ font-size:19px; font-weight:700; color: var(--cm-ink); margin-bottom:14px; }
-.cm-audience p{ color: var(--cm-steel); font-size:15px; line-height:1.7; }
+.cm-audience i{ font-size:32px; color:#fff; margin-bottom:20px; display:block; }
+.cm-audience h4{ font-size:19px; font-weight:700; color: var(--cm-text); margin-bottom:14px; }
+.cm-audience p{ color: var(--cm-text-soft); font-size:15px; line-height:1.7; }
 .cm-audience ul{ list-style:none; padding:0; margin: 18px 0 0; }
-.cm-audience ul li{ color: var(--cm-steel); font-size:15px; margin-bottom:10px; padding-left:24px; position:relative; }
+.cm-audience ul li{ color: var(--cm-text-soft); font-size:15px; margin-bottom:10px; padding-left:24px; position:relative; }
 .cm-audience ul li:before{
 	content: "\f00c";
 	font-family: FontAwesome;
 	position:absolute; left:0; top:2px;
-	color: var(--cm-ink);
+	color:#fff;
 	font-size:13px;
 }
 
@@ -226,18 +265,14 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	font-size:26px;
 	display:inline-block;
 	margin-bottom:22px;
+	border:1px solid rgba(255,255,255,.16);
 }
-.cm-benefit h4{ font-size:17px; font-weight:700; color: var(--cm-ink); margin-bottom:10px; }
-.cm-benefit p{ color: var(--cm-steel); font-size:14.5px; line-height:1.65; }
+.cm-benefit h4{ font-size:17px; font-weight:700; color: var(--cm-text); margin-bottom:10px; }
+.cm-benefit p{ color: var(--cm-text-soft); font-size:14.5px; line-height:1.65; }
 
-/* ---------- CTA band (fond photo) ---------- */
+/* ---------- CTA band ---------- */
 .cm-cta-band{
 	position:relative;
-	background:
-		linear-gradient(to bottom, rgba(0,0,0,.55) 0%, rgba(0,0,0,.78) 100%),
-		url('../images/backgrounds/cta-roadster.jpg');
-	background-size: cover;
-	background-position: center 25%;
 	padding: 150px 0;
 	text-align:center;
 }
@@ -251,8 +286,6 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 
 /* ---------- Fee note ---------- */
 .cm-fee-note{
-	background: var(--cm-ink);
-	border-radius:8px;
 	padding: 40px 44px;
 	color:#fff;
 	display:flex;
@@ -261,23 +294,18 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	margin-top:20px;
 }
 .cm-fee-note i{ font-size:36px; color:#fff; flex-shrink:0; }
-.cm-fee-note p{ margin:0; color:#d4d4d8; font-size:15.5px; line-height:1.7; }
+.cm-fee-note p{ margin:0; color: var(--cm-text-soft); font-size:15.5px; line-height:1.7; }
 .cm-fee-note strong{ color:#fff; }
 
 /* ---------- About ---------- */
-.cm-about-box{
-	background:#fff;
-	border:1px solid var(--cm-border);
-	border-radius:8px;
-	padding: 44px;
-}
-.cm-about-box h3{ font-size:24px; font-weight:700; color: var(--cm-ink); margin-bottom:20px; }
-.cm-about-box p{ color: var(--cm-steel); font-size:15.5px; line-height:1.8; margin-bottom:18px; }
+.cm-about-box{ padding: 44px; }
+.cm-about-box h3{ font-size:24px; font-weight:700; color: var(--cm-text); margin-bottom:20px; }
+.cm-about-box p{ color: var(--cm-text-soft); font-size:15.5px; line-height:1.8; margin-bottom:18px; }
 .cm-about-tags{ display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
 .cm-about-tags span{
-	background: var(--cm-bg);
-	border:1px solid var(--cm-border);
-	color: var(--cm-ink);
+	background: rgba(255,255,255,.1);
+	border:1px solid var(--cm-glass-border);
+	color:#fff;
 	font-size:13px;
 	font-weight:600;
 	padding:8px 16px;
@@ -286,36 +314,42 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 
 /* ---------- Contact ---------- */
 .cm-contact-card{
-	background:#fff;
-	border:1px solid var(--cm-border);
-	border-radius:8px;
 	padding:40px;
 	height:100%;
 }
-.cm-contact-card h3{ font-size:20px; font-weight:700; color: var(--cm-ink); margin-bottom:26px; }
+.cm-contact-card h3{ font-size:20px; font-weight:700; color: var(--cm-text); margin-bottom:26px; }
 .cm-contact-line{ display:flex; align-items:flex-start; gap:16px; margin-bottom:22px; }
 .cm-contact-line i{
 	width:44px; height:44px; line-height:44px; text-align:center;
-	border-radius:50%; background: var(--cm-bg); color: var(--cm-ink); font-size:17px; flex-shrink:0;
+	border-radius:50%; background: rgba(255,255,255,.1); color:#fff; font-size:17px; flex-shrink:0;
 }
-.cm-contact-line a, .cm-contact-line span{ color: var(--cm-steel); }
-.cm-contact-line strong{ display:block; color: var(--cm-ink); font-size:14px; margin-bottom:2px; }
+.cm-contact-line a, .cm-contact-line span{ color: var(--cm-text-soft); }
+.cm-contact-line strong{ display:block; color: var(--cm-text); font-size:14px; margin-bottom:2px; }
 .cm-contact-quick{ display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; }
 
 .cm-form .form-group{ margin-bottom:18px; }
 .cm-form .form-control{
 	border-radius:4px;
-	border:1px solid var(--cm-border);
+	border:1px solid var(--cm-glass-border);
+	background: rgba(255,255,255,.08);
+	color:#fff;
 	height:50px;
 	box-shadow:none;
 }
+.cm-form .form-control::placeholder{ color: var(--cm-text-softer); }
 .cm-form textarea.form-control{ height:auto; }
-.cm-form .form-control:focus{ border-color: var(--cm-ink); box-shadow:none; }
+.cm-form .form-control:focus{ border-color:#fff; box-shadow:none; background: rgba(255,255,255,.12); color:#fff; }
 
 /* ---------- Footer legal ---------- */
-.cm-footer{ background: var(--cm-ink); padding: 34px 0; text-align:center; }
+.cm-footer{
+	background: rgba(0,0,0,.55);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
+	padding: 34px 0;
+	text-align:center;
+}
 .cm-footer-logo{ height:22px; width:auto; display:inline-block; margin-bottom:18px; }
-.cm-footer p{ color:#a1a1aa; font-size:13px; line-height:1.8; margin:0; text-align:center; }
+.cm-footer p{ color: var(--cm-text-softer); font-size:13px; line-height:1.8; margin:0; text-align:center; }
 .cm-footer a{ color:#fff; }
 
 @media(max-width:767px){
@@ -324,4 +358,9 @@ nav.navbar.bootsnav .navbar-toggle{ border-color: var(--cm-ink) !important; }
 	.cm-section{ padding:70px 0; }
 	.cm-fee-note{ flex-direction:column; text-align:center; }
 	.cm-about-box{ padding:28px; margin-top:30px; }
+}
+
+/* Respecte les préférences de réduction de mouvement : pas de flou coûteux ni de fondu animé */
+@media (prefers-reduced-motion: reduce){
+	.cm-bg-layer{ transition:none; }
 }
