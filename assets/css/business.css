@@ -11,6 +11,21 @@
 	--cm-border: #e4e4e7;
 }
 
+/* ---------- Barre de progression de défilement ---------- */
+#cm-scroll-progress{
+	position:fixed;
+	top:0; left:0;
+	width:100%;
+	height:3px;
+	background: rgba(17,17,17,.08);
+	z-index:10000;
+}
+#cm-scroll-progress-bar{
+	height:100%;
+	width:0%;
+	background: var(--cm-ink);
+}
+
 /* ---------- Nav (override du thème violet d'origine du template) ---------- */
 .navbar-header a.navbar-brand,
 .navbar-header a.navbar-brand:hover,
